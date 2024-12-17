@@ -1,0 +1,957 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Global Heritage</title>
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="icon" href="/assets/images/logo.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+
+
+</head>
+<!-- Header -->
+<header>
+    <div class="header-container">
+        <!-- Logo -->
+        <div class="logo">
+            <img src="/assets/images/logo.png" alt="Global Heritage Logo">
+        </div>
+        <div>
+            <h3>DI SẢN TOÀN CẦU</h3>
+        </div>
+
+        <!-- Navigation Bar -->
+        <nav>
+            <div class="menu-toggle" id="mobile-menu" aria-label="Toggle navigation" aria-expanded="false"
+                aria-controls="nav-list">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+            <ul class="nav-list" id="nav-list">
+                <li><a href="/index2.html"><i class="fas fa-home"></i> Trang Chủ</a></li>
+                <li><a href="/pages/about.html"><i class="fas fa-info-circle"></i> Giới Thiệu</a></li>
+                <li><a href="/pages/monuments.html"><i class="fas fa-landmark"></i> Di Tích</a></li>
+                <li><a href="/pages/gallery.html"><i class="fas fa-images"></i> Thư Viện Hình Ảnh</a></li>
+                <li><a href="/pages/contact.html"><i class="fas fa-envelope"></i> Liên Hệ</a></li>
+                <li><a href="/pages/feedback.html"><i class="fas fa-comment-dots"></i> Phản Hồi</a></li>
+            </ul>
+        </nav>
+
+        <!-- Số người truy cập -->
+        <div class="visitor-info">
+            <p><i class="fas fa-user"></i> :<span id="visitorCount">0</span></p>
+        </div>
+
+
+    </div>
+</header>
+
+<script>
+    // Lấy phần tử header
+    const header = document.querySelector('header');
+
+    // Theo dõi vị trí cuộn
+    let lastScrollY = window.scrollY;
+
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > lastScrollY) {
+            // Nếu người dùng cuộn xuống, ẩn header
+            header.classList.add('hidden');
+        } else {
+            // Nếu người dùng cuộn lên, hiện header
+            header.classList.remove('hidden');
+        }
+        lastScrollY = window.scrollY;
+    });
+
+
+    // JavaScript cho menu di động
+    document.getElementById('mobile-menu').addEventListener('click', function () {
+        const navList = document.getElementById('nav-list');
+        navList.classList.toggle('active');
+    });
+
+    // JavaScript để thay đổi màu nền khi cuộn
+    window.addEventListener('scroll', function () {
+        const header = document.querySelector('header');
+        if (window.scrollY > 50) {
+            header.classList.add('scrolled');
+        } else {
+            header.classList.remove('scrolled');
+        }
+    });
+
+
+
+
+    // Lấy số người đã truy cập từ localStorage
+    let visitorCount = localStorage.getItem('visitorCount');
+
+    // Nếu chưa có dữ liệu trong localStorage, thiết lập giá trị ban đầu là 0
+    if (!visitorCount) {
+        visitorCount = 0;
+    }
+
+    // Tăng số người truy cập
+    visitorCount++;
+
+    // Lưu số người truy cập mới vào localStorage
+    localStorage.setItem('visitorCount', visitorCount);
+
+    // Hiển thị số người truy cập trên trang
+    document.getElementById('visitorCount').textContent = visitorCount;
+
+
+
+
+</script>
+
+
+<body>
+    <!-- Carousel Section --> <!-- Phần Video Tự Trình Chiếu -->
+    <section class="carousel">
+        <div class="carousel-container"> <video class="carousel-slide" autoplay muted loop>
+                <source src="/assets/images/video.mp4" type="video/mp4"> Trình duyệt của bạn không hỗ trợ video.
+            </video> </div>
+    </section>
+    <!-- Thông tin thời gian và vị trí -->
+    <div class="einfo-container">
+        <p><i class="fas fa-clock"></i> <span id="currentTime"></span></p>
+        <p><i class="fas fa-map-marker-alt"></i> GPS: <span id="userLocation">Đang xác định...</span></p>
+    </div> <!-- Monuments Section -->
+    <section class="monuments">
+        <h2>Khám Phá Các Di Tích</h2>
+        <div class="monument-list"> <!-- Dynamic content will go here -->
+
+
+            <div class="monument-item">
+                <img src="https://toplist.vn/images/800px/thap-nghieng-pisa-489711.jpg" alt="Monument 1">
+                <h3>Tháp Nghiêng Pisa</h3>
+                <p> Biểu tượng lịch sử của Ý.</p>
+                <a href="/pages//ditich/thap-nghieng-pisa.html" class="btn">Xem Chi Tiết</a>
+                <div class="icon-actions">
+                    <!-- Icon lưu yêu thích -->
+                    <button class="btn icon-btn save-btn" onclick="toggleFavorite(event, 'Tháp Nghiêng Pisa')">
+                        <i class="far fa-heart"></i>
+                    </button>
+                    <!-- Icon chia sẻ -->
+                    <button class="btn icon-btn share-btn" onclick="shareMonument('Tháp Nghiêng Pisa')">
+                        <i class="fas fa-share-alt"></i>
+                    </button>
+                    <!-- Đánh giá -->
+                    <div class="monument-rating">
+                        <div class="stars" onclick="rateMonument(event, 'Tháp Nghiêng Pisa')">
+                            <i class="star">☆</i>
+                            <i class="star">☆</i>
+                            <i class="star">☆</i>
+                            <i class="star">☆</i>
+                            <i class="star">☆</i>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="monument-item">
+                <img src="https://th.bing.com/th/id/OIP.rU-qQSKATCg-ETz3OLSkYgHaEK?rs=1&pid=ImgDetMain" alt="Monument 5">
+                <h3>Vạn Lý Trường Thành</h3>
+                <p>Biểu tượng vĩ đại của Trung Hoa cổ đại</p>
+                <a href="/pages/ditich/vanlitruongthanh.html" class="btn">Xem Chi Tiết</a>
+                <div class="icon-actions">
+                    <!-- Icon lưu yêu thích -->
+                    <button class="btn icon-btn save-btn" onclick="toggleFavorite(event, 'Vạn Lý Trường Thành')">
+                        <i class="far fa-heart"></i>
+                    </button>
+                    <!-- Icon chia sẻ -->
+                    <button class="btn icon-btn share-btn" onclick="shareMonument('Vạn Lý Trường Thành')">
+                        <i class="fas fa-share-alt"></i>
+                    </button>
+                    <!-- Đánh giá -->
+                    <div class="monument-rating">
+                        <div class="stars" onclick="rateMonument(event, 'Vạn Lý Trường Thành')">
+                            <i class="star">☆</i>
+                            <i class="star">☆</i>
+                            <i class="star">☆</i>
+                            <i class="star">☆</i>
+                            <i class="star">☆</i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="monument-item">
+                <img src="https://th.bing.com/th/id/OIP.7aaCOaxDsj0GgUDO2WQh2wHaFj?rs=1&pid=ImgDetMain" alt="Monument 6">
+                <h3>Machu Picchu</h3>
+                <p>Thành phố cổ đại ẩn mình giữa dãy núi Andes</p>
+                <a href="/pages/ditich/machipichu.html" class="btn">Xem Chi Tiết</a>
+                <div class="icon-actions">
+                    <!-- Icon lưu yêu thích -->
+                    <button class="btn icon-btn save-btn" onclick="toggleFavorite(event, 'Machu Picchu')">
+                        <i class="far fa-heart"></i>
+                    </button>
+                    <!-- Icon chia sẻ -->
+                    <button class="btn icon-btn share-btn" onclick="shareMonument('Machu Picchu')">
+                        <i class="fas fa-share-alt"></i>
+                    </button>
+                    <!-- Đánh giá -->
+                    <div class="monument-rating">
+                        <div class="stars" onclick="rateMonument(event, 'Machu Picchu')">
+                            <i class="star">☆</i>
+                            <i class="star">☆</i>
+                            <i class="star">☆</i>
+                            <i class="star">☆</i>
+                            <i class="star">☆</i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="monument-item">
+                <img src="https://th.bing.com/th/id/OIP.Rn46m5gZrsgSfPY8sRDT9QHaE8?rs=1&pid=ImgDetMain" alt="Monument 7">
+                <h3>Nhà Hát Opera Sydney</h3>
+                <p>Kiệt tác kiến trúc biểu tượng của Úc.</p>
+                <a href="/pages/monument-detail.html" class="btn">Xem Chi Tiết</a>
+                <div class="icon-actions">
+                    <!-- Icon lưu yêu thích -->
+                    <button class="btn icon-btn save-btn" onclick="toggleFavorite(event, 'Nhà Hát Opera Sydney')">
+                        <i class="far fa-heart"></i>
+                    </button>
+                    <!-- Icon chia sẻ -->
+                    <button class="btn icon-btn share-btn" onclick="shareMonument('Nhà Hát Opera Sydney')">
+                        <i class="fas fa-share-alt"></i>
+                    </button>
+                    <!-- Đánh giá -->
+                    <div class="monument-rating">
+                        <div class="stars" onclick="rateMonument(event, 'Nhà Hát Opera Sydney')">
+                            <i class="star">☆</i>
+                            <i class="star">☆</i>
+                            <i class="star">☆</i>
+                            <i class="star">☆</i>
+                            <i class="star">☆</i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="monument-item">
+                <img src="https://th.bing.com/th/id/OIP.p-cJcP6SiTbM0JbmnUxmWQHaEK?rs=1&pid=ImgDetMain" alt="Monument 8">
+                <h3>Đấu Trường La Mã</h3>
+                <p>Biểu tượng vĩ đại của đế chế La Mã cổ đại.</p>
+                <a href="/pages/monument-detail.html" class="btn">Xem Chi Tiết</a>
+                <div class="icon-actions">
+                    <!-- Icon lưu yêu thích -->
+                    <button class="btn icon-btn save-btn" onclick="toggleFavorite(event, 'Đấu Trường La Mã')">
+                        <i class="far fa-heart"></i>
+                    </button>
+                    <!-- Icon chia sẻ -->
+                    <button class="btn icon-btn share-btn" onclick="shareMonument('Đấu Trường La Mã')">
+                        <i class="fas fa-share-alt"></i>
+                    </button>
+                    <!-- Đánh giá -->
+                    <div class="monument-rating">
+                        <div class="stars" onclick="rateMonument(event, 'Đấu Trường La Mã')">
+                            <i class="star">☆</i>
+                            <i class="star">☆</i>
+                            <i class="star">☆</i>
+                            <i class="star">☆</i>
+                            <i class="star">☆</i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+           
+            
+            <div class="monument-item">
+                <img src="https://luhanhvietnam.com.vn/du-lich/vnt_upload/news/04_2020/kim-tu-thap-chichen-itza-mexico.jpg" alt="Monument 10">
+                <h3>Kim Tự Tháp Chichen Itza</h3>
+                <p>Kỳ quan cổ đại của người Maya tại Mexico.</p>
+                <a href="/pages/monument-detail.html" class="btn">Xem Chi Tiết</a>
+                <div class="icon-actions">
+                    <!-- Icon lưu yêu thích -->
+                    <button class="btn icon-btn save-btn" onclick="toggleFavorite(event, 'Kim Tự Tháp Chichen Itza')">
+                        <i class="far fa-heart"></i>
+                    </button>
+                    <!-- Icon chia sẻ -->
+                    <button class="btn icon-btn share-btn" onclick="shareMonument('Kim Tự Tháp Chichen Itza')">
+                        <i class="fas fa-share-alt"></i>
+                    </button>
+                    <!-- Đánh giá -->
+                    <div class="monument-rating">
+                        <div class="stars" onclick="rateMonument(event, 'Kim Tự Tháp Chichen Itza')">
+                            <i class="star">☆</i>
+                            <i class="star">☆</i>
+                            <i class="star">☆</i>
+                            <i class="star">☆</i>
+                            <i class="star">☆</i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="monument-item">
+                <img src="https://b-elitetravel.com/public/upload/images/B%C3%A0i%20%C4%91%C4%83ng/B%C3%A0i%20m%E1%BB%9Bi/B%C3%A0i%20tin/dao-santorini-hy-lap-1.jpg" alt="Monument 11">
+                <h3>Đảo Santorini</h3>
+                <p>Hòn đảo tuyệt đẹp của Hy Lạp.</p>
+                
+                <a href="/pages/monument-detail.html" class="btn">Xem Chi Tiết</a>
+                <div class="icon-actions">
+                    <!-- Icon lưu yêu thích -->
+                    <button class="btn icon-btn save-btn" onclick="toggleFavorite(event, 'Đảo Santorini')">
+                        <i class="far fa-heart"></i>
+                    </button>
+                    <!-- Icon chia sẻ -->
+                    <button class="btn icon-btn share-btn" onclick="shareMonument('Đảo Santorini')">
+                        <i class="fas fa-share-alt"></i>
+                    </button>
+                    <!-- Đánh giá -->
+                    <div class="monument-rating">
+                        <div class="stars" onclick="rateMonument(event, 'Đảo Santorini')">
+                            <i class="star">☆</i>
+                            <i class="star">☆</i>
+                            <i class="star">☆</i>
+                            <i class="star">☆</i>
+                            <i class="star">☆</i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="monument-item">
+                <img src="https://th.bing.com/th/id/OIP.kBSWhJDuA3NIeJ4MNZ7G0AHaDt?rs=1&pid=ImgDetMain" alt="Monument 12">
+                <h3>Angkor Wat</h3>
+                <p>Kỳ quan của đế chế Khmer cổ đại.</p>
+                <a href="/pages/monument-detail.html" class="btn">Xem Chi Tiết</a>
+                <div class="icon-actions">
+                    <!-- Icon lưu yêu thích -->
+                    <button class="btn icon-btn save-btn" onclick="toggleFavorite(event, 'Angkor Wat')">
+                        <i class="far fa-heart"></i>
+                    </button>
+                    <!-- Icon chia sẻ -->
+                    <button class="btn icon-btn share-btn" onclick="shareMonument('Angkor Wat')">
+                        <i class="fas fa-share-alt"></i>
+                    </button>
+                    <!-- Đánh giá -->
+                    <div class="monument-rating">
+                        <div class="stars" onclick="rateMonument(event, 'Angkor Wat')">
+                            <i class="star">☆</i>
+                            <i class="star">☆</i>
+                            <i class="star">☆</i>
+                            <i class="star">☆</i>
+                            <i class="star">☆</i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            
+            <div class="monument-item">
+                <img src="https://th.bing.com/th/id/OIP.0ogsxYkSvUP_lVgG0t-kKQHaEK?rs=1&pid=ImgDetMain" alt="Monument 14">
+                <h3>Stonehenge</h3>
+                <p>Kỳ quan cổ đại của Anh.</p>
+                <a href="/pages/monument-detail.html" class="btn">Xem Chi Tiết</a>
+                <div class="icon-actions">
+                    <!-- Icon lưu yêu thích -->
+                    <button class="btn icon-btn save-btn" onclick="toggleFavorite(event, 'Stonehenge')">
+                        <i class="far fa-heart"></i>
+                    </button>
+                    <!-- Icon chia sẻ -->
+                    <button class="btn icon-btn share-btn" onclick="shareMonument('Stonehenge')">
+                        <i class="fas fa-share-alt"></i>
+                    </button>
+                    <!-- Đánh giá -->
+                    <div class="monument-rating">
+                        <div class="stars" onclick="rateMonument(event, 'Stonehenge')">
+                            <i class="star">☆</i>
+                            <i class="star">☆</i>
+                            <i class="star">☆</i>
+                            <i class="star">☆</i>
+                            <i class="star">☆</i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            
+            
+            <div class="monument-item">
+                <img src="https://iecs.vn/wp-content/uploads/2021/03/Lau-dai-Neuschwanstein-6.jpg" alt="Monument 16">
+                <h3>Lâu Đài Neuschwanstein</h3>
+                <p>Kiệt tác kiến trúc tại Bavaria, Đức.</p>
+                <a href="/pages/monument-detail.html" class="btn">Xem Chi Tiết</a>
+                <div class="icon-actions">
+                    <!-- Icon lưu yêu thích -->
+                    <button class="btn icon-btn save-btn" onclick="toggleFavorite(event, 'Lâu Đài Neuschwanstein')">
+                        <i class="far fa-heart"></i>
+                    </button>
+                    <!-- Icon chia sẻ -->
+                    <button class="btn icon-btn share-btn" onclick="shareMonument('Lâu Đài Neuschwanstein')">
+                        <i class="fas fa-share-alt"></i>
+                    </button>
+                    <!-- Đánh giá -->
+                    <div class="monument-rating">
+                        <div class="stars" onclick="rateMonument(event, 'Lâu Đài Neuschwanstein')">
+                            <i class="star">☆</i>
+                            <i class="star">☆</i>
+                            <i class="star">☆</i>
+                            <i class="star">☆</i>
+                            <i class="star">☆</i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="monument-item">
+                <img src="https://toigingiuvedep.vn/wp-content/uploads/2021/08/anh-thap-eiffel-dep-an-tuong.jpg" alt="Monument 2">
+                <h3>Tháp Eiffel</h3>
+                <p>Đây là mô tả ngắn gọn về Tháp Eiffel.</p>
+                <a href="/pages/monument-detail.html" class="btn">Xem Chi Tiết</a>
+                <div class="icon-actions">
+                    <!-- Icon lưu yêu thích -->
+                    <button class="btn icon-btn save-btn" onclick="toggleFavorite(event, 'Tháp Eiffel')">
+                        <i class="far fa-heart"></i>
+                    </button>
+                    <!-- Icon chia sẻ -->
+                    <button class="btn icon-btn share-btn" onclick="shareMonument('Tháp Eiffel')">
+                        <i class="fas fa-share-alt"></i>
+                    </button>
+                    <!-- Đánh giá -->
+                    <div class="monument-rating">
+                        <div class="stars" onclick="rateMonument(event, 'Tháp Eiffel')">
+                            <i class="star">☆</i>
+                            <i class="star">☆</i>
+                            <i class="star">☆</i>
+                            <i class="star">☆</i>
+                            <i class="star">☆</i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="monument-item">
+                <img src="https://th.bing.com/th/id/OIP.2dExXeamh6a3uG_hMndKYQHaEo?rs=1&pid=ImgDetMain" alt="Monument 3">
+                <h3>Tượng Nữ Thần Tự Do</h3>
+                <p>Đây là mô tả ngắn gọn về Tượng Nữ Thần Tự Do.</p>
+                <a href="/pages/monument-detail.html" class="btn">Xem Chi Tiết</a>
+                <div class="icon-actions">
+                    <!-- Icon lưu yêu thích -->
+                    <button class="btn icon-btn save-btn" onclick="toggleFavorite(event, 'Tượng Nữ Thần Tự Do')">
+                        <i class="far fa-heart"></i>
+                    </button>
+                    <!-- Icon chia sẻ -->
+                    <button class="btn icon-btn share-btn" onclick="shareMonument('Tượng Nữ Thần Tự Do')">
+                        <i class="fas fa-share-alt"></i>
+                    </button>
+                    <!-- Đánh giá -->
+                    <div class="monument-rating">
+                        <div class="stars" onclick="rateMonument(event, 'Tượng Nữ Thần Tự Do')">
+                            <i class="star">☆</i>
+                            <i class="star">☆</i>
+                            <i class="star">☆</i>
+                            <i class="star">☆</i>
+                            <i class="star">☆</i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="monument-item">
+                <img src="https://th.bing.com/th/id/R.9e9fd7972b121d8dce299b0fc8c503c4?rik=MhKaSRdx0jWH4w&pid=ImgRaw&r=0" alt="Monument 4">
+                <h3>Đền Taj Mahal</h3>
+                <p>Đây là mô tả ngắn gọn về Đền Taj Mahal.</p>
+                <a href="/pages/monument-detail.html" class="btn">Xem Chi Tiết</a>
+                <div class="icon-actions">
+                    <!-- Icon lưu yêu thích -->
+                    <button class="btn icon-btn save-btn" onclick="toggleFavorite(event, 'Đền Taj Mahal')">
+                        <i class="far fa-heart"></i>
+                    </button>
+                    <!-- Icon chia sẻ -->
+                    <button class="btn icon-btn share-btn" onclick="shareMonument('Đền Taj Mahal')">
+                        <i class="fas fa-share-alt"></i>
+                    </button>
+                    <!-- Đánh giá -->
+                    <div class="monument-rating">
+                        <div class="stars" onclick="rateMonument(event, 'Đền Taj Mahal')">
+                            <i class="star">☆</i>
+                            <i class="star">☆</i>
+                            <i class="star">☆</i>
+                            <i class="star">☆</i>
+                            <i class="star">☆</i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+
+
+        </div>
+
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+        <!-- Modal chia sẻ -->
+        <div id="share-modal" class="modal">
+            <div class="modal-content">
+                <span class="close-btn" onclick="closeShareModal()">&times;</span>
+                <h2>Chia sẻ Tháp Nghiêng Pisa</h2>
+                <div class="share-options">
+                    <button class="btn icon-btn" onclick="copyLink()"><i class="fas fa-link"></i> Sao chép liên
+                        kết</button>
+                    <button class="btn icon-btn" onclick="shareViaEmail()"><i class="fas fa-envelope"></i>
+                        Email</button>
+                    <button class="btn icon-btn" onclick="shareViaFacebook()"><i class="fab fa-facebook"></i>
+                        Facebook</button>
+                    <button class="btn icon-btn" onclick="shareViaTwitter()"><i class="fab fa-twitter"></i>
+                        Twitter</button>
+                </div>
+            </div>
+        </div>
+
+
+
+        <!-- Toast -->
+        <div id="rating-toast"></div>
+
+        </div>
+
+    </section>
+    <div class="button-container">
+        <button class="toggle-btn" id="load-more-btn" onclick="loadMore()">Xem thêm</button>
+        <button class="toggle-btn" id="show-less-btn" onclick="showLess()" style="display: none;">Ẩn </button>
+    </div>
+    <!-- Chatbox Button -->
+    <button class="chatbox-toggle" onclick="toggleChatbox()">
+        <i class="fas fa-comments"></i>
+    </button>
+
+    <!-- Chatbox -->
+    <div class="chatbox" id="chatbox" style="display: none;">
+        <div class="chatbox-header">
+            <h3>Liên Hệ Với Chúng Tôi</h3>
+            <button onclick="toggleChatbox()">&times;</button>
+        </div>
+        <div class="chatbox-body" id="chatbox-body">
+            <p>Chào bạn! Bạn muốn làm gì?</p>
+            <button onclick="selectOption('email')">Gửi Email</button>
+            <button onclick="selectOption('support')">Hỗ Trợ Kỹ Thuật</button>
+            <button onclick="selectOption('message')">Gửi Tin Nhắn</button>
+        </div>
+        <div class="chatbox-footer" id="chatbox-footer">
+            <!-- Dynamic content here -->
+        </div>
+    </div>
+
+    <script>
+        // Hàm cập nhật thời gian hiện tại
+        function updateCurrentTime() { const now = new Date(); const hours = String(now.getHours()).padStart(2, '0'); const minutes = String(now.getMinutes()).padStart(2, '0'); const seconds = String(now.getSeconds()).padStart(2, '0'); const formattedTime = `${hours}:${minutes}:${seconds}`; document.getElementById('currentTime').textContent = formattedTime; }
+        // Cập nhật thời gian mỗi giây 
+        setInterval(updateCurrentTime, 1000); updateCurrentTime();
+        // Hàm lấy tọa độ người dùng 
+        function getUserLocation() { const locationElement = document.getElementById('userLocation'); if (navigator.geolocation) { navigator.geolocation.getCurrentPosition(function (position) { const latitude = position.coords.latitude.toFixed(4); const longitude = position.coords.longitude.toFixed(4); locationElement.textContent = `Lat: ${latitude}, Long: ${longitude}`; }, function () { locationElement.textContent = "Không thể xác định vị trí."; }); } else { locationElement.textContent = "Trình duyệt không hỗ trợ định vị."; } }
+        // Gọi hàm khi tải trang 
+        getUserLocation();
+        function toggleChatbox() {
+            const chatbox = document.getElementById("chatbox");
+            chatbox.style.display = chatbox.style.display === "flex" ? "none" : "flex";
+        }
+
+        function selectOption(option) {
+            const chatboxBody = document.getElementById("chatbox-body");
+            const chatboxFooter = document.getElementById("chatbox-footer");
+
+            if (option === "email") {
+                chatboxBody.innerHTML = `<p>Hãy gửi email đến: <a href="mailto:duytu178204@gmail.com">duytu178204@gmail.com</a></p>`;
+                chatboxFooter.innerHTML = "";
+            } else if (option === "support") {
+                chatboxBody.innerHTML = `<p>Vui lòng gọi: <a href="tel:+84979401426">0979401426</a> để được hỗ trợ.</p>`;
+                chatboxFooter.innerHTML = "";
+            } else if (option === "message") {
+                // Giao diện chat
+                chatboxBody.innerHTML = `
+                <div class="message received">Xin chào! Hãy để lại thông tin và số điện thoại để chúng tôi có thể liên hệ với bạn.</div>
+            `;
+                chatboxFooter.innerHTML = `
+                <input type="text" id="chatInput" placeholder="Nhập tin nhắn...">
+                <button onclick="sendMessage()">Gửi</button>
+            `;
+            }
+        }
+
+        function sendMessage() {
+            const chatInput = document.getElementById("chatInput");
+            const message = chatInput.value.trim();
+
+            if (!message) {
+                alert("Vui lòng nhập tin nhắn!");
+                return;
+            }
+
+            const chatboxBody = document.getElementById("chatbox-body");
+
+            // Thêm tin nhắn người dùng
+            const sentMessage = document.createElement("div");
+            sentMessage.className = "message sent";
+            sentMessage.textContent = message;
+            chatboxBody.appendChild(sentMessage);
+
+            chatboxBody.scrollTop = chatboxBody.scrollHeight; // Cuộn tới cuối
+
+            chatInput.value = ""; // Reset input
+
+            // Tạo phản hồi tự động
+            setTimeout(() => {
+                const receivedMessage = document.createElement("div");
+                receivedMessage.className = "message received";
+                receivedMessage.textContent = "Cảm ơn bạn đã để lại thông tin. Nhân viên của chúng tôi sẽ sớm liên hệ lại với bạn!";
+                chatboxBody.appendChild(receivedMessage);
+
+                chatboxBody.scrollTop = chatboxBody.scrollHeight; // Cuộn tới cuối
+            }, 1000);
+        }
+
+
+        // Mảng lưu các di tích yêu thích
+        let favoriteMonuments = [];
+
+
+
+
+        // Hàm lưu yêu thích
+        function toggleFavorite(event, monumentName) {
+            const button = event.target.closest('.save-btn');
+            const icon = button.querySelector('i');
+
+            if (localStorage.getItem(monumentName)) {
+                // Nếu địa danh đã có trong danh sách yêu thích, xóa nó
+                localStorage.removeItem(monumentName);
+                favoriteMonuments = favoriteMonuments.filter(item => item !== monumentName);
+                icon.classList.remove('fas'); // Thay đổi icon từ đầy sang rỗng
+                icon.classList.add('far');
+                showToast(`${monumentName} đã bị xóa khỏi yêu thích.`);
+            } else {
+                // Nếu địa danh chưa có trong danh sách yêu thích, thêm nó
+                localStorage.setItem(monumentName, 'true');
+                favoriteMonuments.push(monumentName);
+                icon.classList.remove('far'); // Thay đổi icon từ rỗng sang đầy
+                icon.classList.add('fas');
+                showToast(`${monumentName} đã được lưu vào yêu thích.`);
+            }
+            saveFavorites();
+        }
+
+        // Lưu danh sách yêu thích vào localStorage
+        function saveFavorites() {
+            try {
+                localStorage.setItem("favoriteMonuments", JSON.stringify(favoriteMonuments));
+            } catch (e) {
+                console.error("Lỗi khi lưu danh sách yêu thích vào localStorage:", e);
+            }
+        }
+
+        // Tải danh sách yêu thích từ localStorage
+        function loadFavorites() {
+            try {
+                const savedFavorites = JSON.parse(localStorage.getItem("favoriteMonuments"));
+                if (savedFavorites) {
+                    favoriteMonuments = savedFavorites;
+                    updateIcons(); // Cập nhật trạng thái của các icon
+                }
+            } catch (e) {
+                console.error("Lỗi khi tải danh sách yêu thích từ localStorage:", e);
+            }
+        }
+        // Cập nhật trạng thái của các icon theo danh sách yêu thích
+        function updateIcons() {
+            const allMonumentButtons = document.querySelectorAll('.save-btn');
+            allMonumentButtons.forEach(button => {
+                const monumentName = button.dataset.monumentName; // Giả sử mỗi nút có thuộc tính data-monument-name
+                const icon = button.querySelector('i');
+
+                if (favoriteMonuments.includes(monumentName)) {
+                    icon.classList.remove('far');
+                    icon.classList.add('fas');
+                } else {
+                    icon.classList.remove('fas');
+                    icon.classList.add('far');
+                }
+            });
+        }
+
+        // Hiển thị thông báo toast
+        function showToast(message) {
+            const toast = document.createElement('div');
+            toast.className = 'toast';
+            toast.innerText = message;
+            document.body.appendChild(toast);
+
+            setTimeout(() => {
+                document.body.removeChild(toast);
+            }, 3000);
+        }
+        // Hàm chia sẻ
+        function shareMonument(monumentName) {
+            const shareText = `Khám phá ${monumentName} ngay tại website của chúng tôi!`;
+            if (navigator.share) {
+                navigator.share({
+                    title: monumentName,
+                    text: shareText,
+                    url: window.location.href
+                }).then(() => {
+                    showToast("Chia sẻ thành công!");
+                }).catch(err => {
+                    console.error("Chia sẻ thất bại:", err);
+                    showToast("Chia sẻ thất bại.");
+                });
+            } else {
+                showToast("Trình duyệt của bạn không hỗ trợ chia sẻ.");
+            }
+        }
+        // Lưu trạng thái đánh giá sao vào localStorage
+        function saveRating(monumentName, rating) {
+            const ratings = JSON.parse(localStorage.getItem("ratings")) || {};
+            ratings[monumentName] = rating;
+            localStorage.setItem("ratings", JSON.stringify(ratings));
+        }
+        // Tải trạng thái đánh giá từ localStorage
+        function loadRatings() {
+            const ratings = JSON.parse(localStorage.getItem("ratings")) || {};
+            document.querySelectorAll('.monument-item').forEach(item => {
+                const name = item.querySelector('h3').textContent; // Tên di tích
+                const stars = item.querySelectorAll('.star');
+                if (ratings[name]) {
+                    const rating = ratings[name];
+                    stars.forEach((star, index) => {
+                        star.textContent = index < rating ? '★' : '☆';
+                    });
+                }
+            });
+        }
+        // Hàm xử lý đánh giá sao
+        function rateMonument(event, monumentName) {
+            const stars = event.target.parentElement.querySelectorAll('.star');
+            const rating = Array.from(stars).indexOf(event.target) + 1;
+
+            if (rating > 0) {
+                // Cập nhật giao diện sao
+                stars.forEach((star, index) => {
+                    star.textContent = index < rating ? '★' : '☆';
+                });
+
+                // Hiển thị thông báo đánh giá
+                showToast(`Bạn đã đánh giá ${monumentName} với ${rating} sao.`);
+            }
+        }
+
+        // Hiển thị thông báo
+        function showToast(message) {
+            const toast = document.getElementById('rating-toast');
+            toast.textContent = message;
+            toast.classList.add('show');
+
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000); // Ẩn sau 3 giây
+        }
+
+
+        // Gọi khi tải trang
+        window.onload = function () {
+            loadFavorites();
+            loadRatings(); // Bạn quên gọi hàm loadRatings
+            document.querySelectorAll('.save-btn').forEach(button => {
+                const monumentName = button.getAttribute('onclick').match(/'(.*?)'/)[1];
+                const icon = button.querySelector('i');
+                if (favoriteMonuments.includes(monumentName)) {
+                    icon.classList.remove('far');
+                    icon.classList.add('fas');
+                }
+            });
+
+        };
+        // Hiển thị modal chia sẻ
+        function shareMonument(monumentName) {
+            const modal = document.getElementById('share-modal');
+            const modalTitle = modal.querySelector('h2');
+            modalTitle.textContent = `Chia sẻ ${monumentName}`;
+            modal.style.display = 'block';
+        }
+
+        // Đóng modal chia sẻ
+        function closeShareModal() {
+            const modal = document.getElementById('share-modal');
+            modal.style.display = 'none';
+        }
+
+        // Sao chép liên kết vào clipboard
+        function copyLink() {
+            const link = window.location.href;
+            navigator.clipboard.writeText(link).then(() => {
+                showToast("Liên kết đã được sao chép!");
+            }).catch(err => {
+                console.error("Không thể sao chép liên kết:", err);
+                showToast("Không thể sao chép liên kết.");
+            });
+        }
+
+        // Chia sẻ qua email
+        function shareViaEmail() {
+            const subject = "Khám phá Tháp Nghiêng Pisa";
+            const body = `Hãy cùng tôi khám phá di tích thú vị này: ${window.location.href}`;
+            window.location.href = `mailto:?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+        }
+
+        // Chia sẻ qua Facebook
+        function shareViaFacebook() {
+            const url = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}`;
+            window.open(url, '_blank');
+        }
+
+        // Chia sẻ qua Twitter
+        function shareViaTwitter() {
+            const text = "Khám phá Tháp Nghiêng Pisa cùng tôi!";
+            const url = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(window.location.href)}`;
+            window.open(url, '_blank');
+        }
+
+        // Đóng modal khi nhấn ngoài
+        window.onclick = function (event) {
+            const modal = document.getElementById('share-modal');
+            if (event.target === modal) {
+                modal.style.display = 'none';
+            }
+        };
+        // Hàm hiển thị thông báo (toast message)
+        function showToast(message) {
+            const toast = document.getElementById('rating-toast'); // Lấy phần tử toast
+            toast.textContent = message; // Cập nhật nội dung thông báo
+            toast.classList.add('show'); // Hiển thị toast
+            setTimeout(() => {
+                toast.classList.remove('show'); // Ẩn toast sau 3 giây
+            }, 3000);
+        }
+
+        // Hàm hiển thị thêm hoặc ẩn các di tích
+        function loadMore() {
+            document.getElementById("monumentList").classList.add("expanded");
+            document.getElementById("load-more-btn").style.display = "none";
+            document.getElementById("show-less-btn").style.display = "inline-block";
+        }
+
+        function showLess() {
+            document.getElementById("monumentList").classList.remove("expanded");
+            document.getElementById("load-more-btn").style.display = "inline-block";
+            document.getElementById("show-less-btn").style.display = "none";
+        }
+
+        // Load the initial favorites and ratings
+        loadFavorites();
+        loadRatings();
+
+    </script>
+
+</body>
+
+
+<!-- Footer Section -->
+<footer class="footer">
+    <div class="footer-content">
+        <!-- Phần bên trái -->
+        <div class="footer-left">
+            <!-- Thông tin chào mừng -->
+            <h3>Chào mừng đến với Di sản toàn cầu</h3>
+            <p>Di sản toàn cầu: Khám phá các di tích lịch sử thế giới</p>
+            <!-- Mô tả về doanh nghiệp -->
+            <div class="about-section">
+                <h4>Về chúng tôi</h4>
+                <p>
+                    Chào mừng đến với Global Heritage: Explore the World's Historic Monuments, cổng thông tin kỹ
+                    thuật số cuối cùng của bạn đến các địa danh lịch sử mang tính biểu tượng nhất thế giới. Sứ mệnh
+                    của chúng tôi là truyền cảm hứng, giáo dục và kết nối mọi người với sự giàu có về văn hóa và
+                    lịch sử của hành tinh chúng ta.
+                </p>
+            </div>
+
+            <!-- Thông tin liên hệ và doanh nghiệp hợp tác -->
+            <div class="contact-info">
+                <h4>Hỗ trợ khách hàng</h4>
+                <p>Đường dây nóng: <a href="tel:+84979401426">0979401426</a></p>
+
+            </div>
+
+            <!-- Liên kết mạng xã hội -->
+            <div class="social-media-links">
+                <a href="https://www.facebook.com/profile.php?id=100046391213815" target="_blank"
+                    rel="noopener noreferrer">
+                    <i class="fab fa-facebook"></i> Facebook
+                </a>
+                <a href="https://www.instagram.com/_ldtu_/?hl=en" target="_blank" rel="noopener noreferrer">
+                    <i class="fab fa-instagram"></i> Instagram
+                </a>
+                <a href="mailto:duytu178204@gmail.com" target="_blank" rel="noopener noreferrer">
+                    <i class="fas fa-envelope"></i> Gmail
+                </a>
+            </div>
+        </div>
+
+        <!-- Phần bên phải -->
+        <div class="footer-right">
+            <h2>Đối tác của chúng tôi</h2>
+            <!-- Logo doanh nghiệp hợp tác -->
+            <div class="partner-logo">
+                <img src="/assets/images/partner.png" alt="Đối tác của chúng tôi" />
+            </div>
+
+            <!-- Logo bổ sung -->
+            <div class="additional-logo">
+                <img src="/assets/images/logo.png" alt="Đối tác bổ sung" />
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Nút lên đầu trang -->
+    <div class="scroll-to-top" onclick="scrollToTop()">
+        <i class="fas fa-chevron-up"></i> <!-- Sử dụng icon mũi tên -->
+    </div>
+
+    <!-- Bản quyền -->
+    <p>&copy; 2024 Global Heritage. Tất cả quyền được bảo vệ.</p>
+</footer>
+
+<!-- JavaScript cuộn lên đầu trang -->
+<script>
+    // Hàm để cuộn lên đầu trang
+    function scrollToTop() {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // Hiển thị hoặc ẩn nút "quay về đầu trang" khi cuộn
+    window.addEventListener('scroll', function () {
+        const scrollToTopButton = document.querySelector('.scroll-to-top');
+        if (window.scrollY > 300) { // Hiển thị khi cuộn xuống 300px
+            scrollToTopButton.style.display = 'block';
+        } else {
+            scrollToTopButton.style.display = 'none';
+        }
+    });
+</script>
+
+
+<!-- Scripts -->
+<script src="/scripts/main.js"></script>
+<script src="/scripts/carousel.js"></script>
+<script src="/scripts/visitorCount.js"></script>
+
+</html>
