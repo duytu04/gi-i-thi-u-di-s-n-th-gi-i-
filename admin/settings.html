@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Settings - Admin Dashboard">
+    <title>Settings - Admin Dashboard</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+        }
+
+        #sidebar {
+            height: 100vh;
+            width: 250px;
+            position: fixed;
+            background-color: #343a40;
+            color: white;
+            padding: 15px;
+        }
+
+        #sidebar h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        #sidebar ul {
+            padding: 0;
+            list-style: none;
+        }
+
+        #sidebar ul li {
+            margin: 15px 0;
+        }
+
+        #sidebar ul li a {
+            color: white;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+
+        #sidebar ul li a:hover {
+            text-decoration: underline;
+        }
+
+        #content {
+            margin-left: 260px;
+            padding: 20px;
+        }
+        
+        .form-container {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #343a40;
+            color: white;
+        }
+
+        .dark-mode {
+            background-color: #121212;
+            color: #e4e4e4;
+        }
+
+        .dark-mode .form-container {
+            background: #1e1e1e;
+        }
+
+        .dark-mode #sidebar {
+            background-color: #1e1e1e;
+        }
+
+        .dark-mode .footer {
+            background-color: #1e1e1e;
+        }
+    </style>
+</head>
+<body>
+    <div id="sidebar">
+        <h2><i class="fas fa-landmark"></i> ADMIN</h2>
+        <ul>
+            <li><a href="index.html"><i class="fas fa-home mr-2"></i>Home</a></li>
+            <li><a href="list.html"><i class="fas fa-list mr-2"></i>List of Heritage Sites</a></li>
+            <li><a href="add.html"><i class="fas fa-plus-circle mr-2"></i>Add Heritage Site</a></li>
+            <li><a href="feedback.html"><i class="fas fa-comments mr-2"></i>New Feedback</a></li>
+            <li><a href="settings.html"><i class="fas fa-cog mr-2"></i>Settings</a></li>
+        </ul>
+    </div>
+
+    <div id="content">
+        <h1>Settings</h1>
+        <div class="form-container">
+            <h3>Change Password</h3>
+            <form>
+                <div class="form-group">
+                    <label for="currentPassword">Current Password</label>
+                    <input type="password" class="form-control" id="currentPassword" placeholder="Enter current password" required>
+                </div>
+                <div class="form-group">
+                    <label for="newPassword">New Password</label>
+                    <input type="password" class="form-control" id="newPassword" placeholder="Enter new password" required>
+                </div>
+                <div class="form-group">
+                    <label for="confirmPassword">Confirm Password</label>
+                    <input type="password" class="form-control" id="confirmPassword" placeholder="Confirm new password" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Save Changes</button>
+            </form>
+        </div>
+
+        <div class="form-container mt-4">
+            <h3>System Settings</h3>
+            <form>
+                <div class="form-group">
+                    <label for="language">Language</label>
+                    <select class="form-control" id="language">
+                        <option value="vi">Vietnamese</option>
+                        <option value="en">English</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="timezone">Time Zone</label>
+                    <select class="form-control" id="timezone">
+                        <option value="UTC+7">UTC+7</option>
+                        <option value="UTC+8">UTC+8</option>
+                        <option value="UTC+9">UTC+9</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="theme">Display Mode</label>
+                    <select class="form-control" id="theme">
+                        <option value="light">Light Mode</option>
+                        <option value="dark">Dark Mode</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="notifications">Notifications</label>
+                    <select class="form-control" id="notifications">
+                        <option value="all">All</option>
+                        <option value="important">Important Only</option>
+                        <option value="none">No Notifications</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="recovery">Account Recovery Options</label>
+                    <input type="email" class="form-control" id="recovery" placeholder="Enter recovery email">
+                </div>
+                <button type="submit" class="btn btn-primary">Save Settings</button>
+            </form>
+        </div>
+
+        <div class="form-container mt-4">
+            <h3>Manage Admin Account</h3>
+            <form id="createAdminForm">
+                <div class="form-group">
+                    <label for="adminUsername">Username</label>
+                    <input type="text" class="form-control" id="adminUsername" placeholder="Enter username" required>
+                </div>
+                <div class="form-group">
+                    <label for="adminPassword">Password</label>
+                    <input type="password" class="form-control" id="adminPassword" placeholder="Enter password" required>
+                </div>
+                <button type="submit" class="btn btn-success">Create Account</button>
+            </form>
+
+            <hr>
+
+            <h3>Sub Admin List</h3>
+            <ul id="adminList" class="list-group">
+                <!-- Sub admin list will be dynamically created here -->
+            </ul>
+        </div>
+
+        <button type="button" id="logoutButton" class="btn btn-danger mt-4">Logout</button>
+    </div>
+
+    <div class="footer">
+        &copy; 2024 - Global Heritage Admin Dashboard
+    </div>
+
+    <script>
+        const themeSelector = document.getElementById('theme');
+        themeSelector.addEventListener('change', function() {
+            if (themeSelector.value === 'dark') {
+                document.body.classList.add('dark-mode');
+            } else {
+                document.body.classList.remove('dark-mode');
+            }
+        });
+
+        const logoutButton = document.getElementById('logoutButton');
+        logoutButton.addEventListener('click', function() {
+            // Remove authentication information
+            localStorage.removeItem('authToken');
+            sessionStorage.removeItem('authToken');
+
+            // Redirect to login page
+            window.location.href = 'login.html';
+        });
+
+        // Manage sub admin accounts
+        const createAdminForm = document.getElementById('createAdminForm');
+        const adminList = document.getElementById('adminList');
+
+        createAdminForm.addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const username = document.getElementById('adminUsername').value;
+            const password = document.getElementById('adminPassword').value;
+
+            if (username && password) {
+                const li = document.createElement('li');
+                li.className = 'list-group-item d-flex justify-content-between align-items-center';
+                li.textContent = username;
+
+                const deleteButton = document.createElement('button');
+                deleteButton.className = 'btn btn-danger btn-sm';
+                deleteButton.textContent = 'Delete';
+
+                deleteButton.addEventListener('click', function() {
+                    if (confirm(`Are you sure you want to delete sub-admin: ${username}?`)) {
+                        adminList.removeChild(li);
+                    }
+                });
+
+                li.appendChild(deleteButton);
+                adminList.appendChild(li);
+
+                createAdminForm.reset();
+            } else {
+                alert('Please enter complete information.');
+            }
+        });
+    </script>
+</body>
+</html>

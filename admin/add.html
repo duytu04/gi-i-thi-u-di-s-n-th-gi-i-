@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Admin Dashboard - Add Heritage">
+    <title>Admin Dashboard - Add Heritage</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f7fa;
+            margin: 0;
+            padding: 0;
+        }
+      
+        #sidebar {
+            height: 100vh;
+            width: 250px;
+            position: fixed;
+            background-color: #343a40;
+            color: white;
+            padding: 15px;
+        }
+
+        #sidebar h2 {
+            text-align: center;
+            margin-bottom: 20px;
+           
+        }
+
+        #sidebar ul {
+            padding: 0;
+            list-style: none;
+        }
+
+        #sidebar ul li {
+            margin: 15px 0;
+        }
+
+        #sidebar ul li a {
+            color: white;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+
+        #sidebar ul li a:hover {
+            text-decoration: underline;
+        }
+
+        #content {
+            margin-left: 260px;
+            padding: 20px;
+        }
+
+        .form-container {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-container label {
+            font-weight: 600;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #343a40;
+            color: white;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div id="sidebar">
+        <h2><i class="fas fa-landmark"></i> ADMIN</h2>
+        <ul>
+            <li><a href="index.html"><i class="fas fa-home mr-2"></i>Home</a></li>
+            <li><a href="list.html"><i class="fas fa-list mr-2"></i>Heritage List</a></li>
+            <li><a href="add.html"><i class="fas fa-plus-circle mr-2"></i>Add Heritage</a></li>
+            <li><a href="feedback.html"><i class="fas fa-comments mr-2"></i>Feedback</a></li>
+            <li><a href="settings.html"><i class="fas fa-cog mr-2"></i>Settings</a></li>
+        </ul>
+    </div>
+
+    <div id="content">
+        <h1 class="mb-4">Add Heritage</h1>
+
+        <div class="form-container">
+            <form action="/submit" method="post">
+                <div class="form-group">
+                    <label for="heritageName">Heritage Name</label>
+                    <input type="text" id="heritageName" name="heritageName" class="form-control" placeholder="Enter heritage name" required>
+                </div>
+                <div class="form-group">
+                    <label for="description">Description</label>
+                    <textarea id="description" name="description" class="form-control" rows="4" placeholder="Enter description" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="history">History</label>
+                    <textarea id="history" name="history" class="form-control" rows="4" placeholder="Enter history" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="mainImage">Main Image</label>
+                    <input type="file" id="mainImage" name="mainImage" class="form-control" accept="image/*" required>
+                    <small class="form-text text-muted">Select a prominent image to display.</small>
+                </div>
+                <div class="form-group">
+                    <label for="images">Additional Images</label>
+                    <input type="file" id="images" name="images" class="form-control" accept="image/*" multiple required>
+                    <small class="form-text text-muted">You can select up to 5 images.</small>
+                </div>
+                <div class="form-group">
+                    <label for="video">Video</label>
+                    <input type="file" id="video" name="video" class="form-control" accept="video/*" required>
+                    <small class="form-text text-muted">You can select only 1 video.</small>
+                </div>
+                <div class="form-group">
+                    <label for="location">Geographical Location</label>
+                    <select id="location" name="location" class="form-control" required>
+                        <option value="">-- Select Location --</option>
+                        <option value="east">East</option>
+                        <option value="west">West</option>
+                        <option value="north">North</option>
+                        <option value="south">South</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="region">Region</label>
+                    <input type="text" id="region" name="region" class="form-control" placeholder="Enter region" required>
+                </div>
+                <button type="submit" class="btn btn-primary btn-block">Add Heritage</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="footer">
+        &copy; 2024 - Global Heritage Admin Dashboard
+    </div>
+
+    <script>
+        document.getElementById('images').addEventListener('change', function(event) {
+            const files = event.target.files;
+            if (files.length > 5) {
+                alert('You can only select up to 5 images.');
+                event.target.value = ""; // Reset input
+            }
+        });
+
+        document.getElementById('video').addEventListener('change', function(event) {
+            const files = event.target.files;
+            if (files.length > 1) {
+                alert('You can only select 1 video.');
+                event.target.value = ""; // Reset input
+            }
+        });
+    </script>
+</body>
+</html>

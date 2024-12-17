@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Admin Dashboard - Global Heritage">
+    <title>Admin Dashboard - Global Heritage</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+        }
+
+        #sidebar {
+            height: 100vh;
+            width: 250px;
+            position: fixed;
+            background-color: #343a40;
+            color: white;
+            padding: 15px;
+        }
+
+        #sidebar h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        #sidebar ul {
+            padding: 0;
+            list-style: none;
+        }
+
+        #sidebar ul li {
+            margin: 15px 0;
+        }
+
+        #sidebar ul li a {
+            color: white;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+
+        #sidebar ul li a:hover {
+            text-decoration: underline;
+        }
+
+        #content {
+            margin-left: 260px;
+            padding: 20px;
+        }
+
+        .chart-container {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #343a40;
+            color: white;
+        }
+
+        .dark-mode {
+            background-color: #121212;
+            color: #e4e4e4;
+        }
+
+        .dark-mode .chart-container {
+            background: #1e1e1e;
+        }
+
+        .dark-mode #sidebar {
+            background-color: #1e1e1e;
+        }
+
+        .dark-mode .footer {
+            background-color: #1e1e1e;
+        }
+    </style>
+</head>
+<body>
+    <div id="sidebar">
+        <h2><i class="fas fa-landmark"></i> ADMIN</h2>
+        <ul>
+            <li><a href="index.html"><i class="fas fa-home mr-2"></i>Home</a></li>
+            <li><a href="list.html"><i class="fas fa-list mr-2"></i>Heritage List</a></li>
+            <li><a href="add.html"><i class="fas fa-plus-circle mr-2"></i>Add Heritage</a></li>
+            <li><a href="feedback.html"><i class="fas fa-comments mr-2"></i>New Feedback</a></li>
+            <li><a href="settings.html"><i class="fas fa-cog mr-2"></i>Settings</a></li>
+        </ul>
+    </div>
+
+    <div id="content">
+        <h1 data-aos="fade-down">Statistics</h1>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="chart-container" data-aos="zoom-in">
+                    <h3>Traffic</h3>
+                    <canvas id="trafficChart"></canvas>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="chart-container" data-aos="zoom-in">
+                    <h3>User Behavior</h3>
+                    <canvas id="userBehaviorChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="chart-container" data-aos="zoom-in">
+                    <h3>Favorite Heritages</h3>
+                    <canvas id="favoriteChart"></canvas>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="chart-container" data-aos="zoom-in">
+                    <h3>Heritage Ratings</h3>
+                    <canvas id="ratingChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="chart-container" data-aos="zoom-in">
+                    <h3>Popular Locations</h3>
+                    <canvas id="locationChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        &copy; 2024 - Global Heritage Admin Dashboard
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+    <script>
+        AOS.init();
+
+        var trafficCtx = document.getElementById('trafficChart').getContext('2d');
+        var trafficChart = new Chart(trafficCtx, {
+            type: 'line',
+            data: {
+                labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+                datasets: [{
+                    label: 'Traffic',
+                    data: [50, 200, 150, 60, 300, 250],
+                    borderColor: '#007bff',
+                    borderWidth: 2
+                }]
+            }
+        });
+
+        var behaviorCtx = document.getElementById('userBehaviorChart').getContext('2d');
+        var behaviorChart = new Chart(behaviorCtx, {
+            type: 'bar',
+            data: {
+                labels: ['HOME', 'about', 'monuments', 'gallery', 'contact', 'feedback'],
+                datasets: [{
+                    label: 'User Behavior',
+                    data: [35, 50, 40, 70, 33, 40],
+                    backgroundColor: '#28a745'
+                }]
+            }
+        });
+
+        var favoriteCtx = document.getElementById('favoriteChart').getContext('2d');
+        var favoriteChart = new Chart(favoriteCtx, {
+            type: 'pie',
+            data: {
+                labels: ['Pyramids', 'Machu Picchu', 'Opera', 'Stonehenge'],
+                datasets: [{
+                    label: 'Favorite Heritages',
+                    data: [120, 90, 60, 100],
+                    backgroundColor: ['#ff6384', '#36a2eb', '#ffce56']
+                }]
+            }
+        });
+
+        var ratingCtx = document.getElementById('ratingChart').getContext('2d');
+        var ratingChart = new Chart(ratingCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Pyramids', 'Machu Picchu', 'Opera', 'Stonehenge'],
+                datasets: [{
+                    label: 'Heritage Ratings',
+                    data: [4.8, 3, 4.6, 2.5],
+                    backgroundColor: ['#4caf50', '#4caf50', '#4caf50', '#4caf50']
+                }]
+            }
+        });
+
+        var locationCtx = document.getElementById('locationChart').getContext('2d');
+        var locationChart = new Chart(locationCtx, {
+            type: 'polarArea',
+            data: {
+                labels: ['Hanoi', 'Ho Chi Minh', 'Da Nang', 'Hue', 'Quang Ninh'],
+                datasets: [{
+                    label: 'Popular Locations',
+                    data: [50, 80, 60, 40, 30],
+                    backgroundColor: ['#007bff', '#ffc107', '#28a745', '#17a2b8', '#6610f2']
+                }]
+            }
+        });
+
+        document.getElementById('toggleDarkMode').addEventListener('click', function() {
+            document.body.classList.toggle('dark-mode');
+        });
+    </script>
+</body>
+</html>
